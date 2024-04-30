@@ -1091,4 +1091,101 @@ console.log(anotherStudent52);
 // However, TypeScript's ability to infer types from JavaScript is not as robust as when working with TypeScript files. For example, it might not be able to infer complex types or types that depend on runtime behavior.
 
 ///////////////////////////////
-// 54. Type Guards - typeof
+// 54. Type - "typeof" Guards
+type ValueType54 = string | number | boolean;
+let value54: ValueType54;
+const random54 = Math.random();
+
+value54 = random54 < 0.33 ? "Hello" : random54 < 0.66 ? 123.456 : true;
+console.log(value54);
+
+function checkValue54(value: ValueType54) {
+  if (typeof value === "string") {
+    console.log(value.toLowerCase());
+    return;
+  }
+  if (typeof value === "number") {
+    console.log(value.toFixed(2));
+    return;
+  }
+  console.log(`boolean: ${value}`);
+}
+
+checkValue54(value);
+
+///////////////////////////////
+// 55. Type Guards - Equality Narrowing
+type Dog55 = { type: "dog"; name: string; bark: () => void };
+type Cat55 = { type: "cat"; name: string; meow: () => void };
+type Animal55 = Dog55 | Cat55;
+
+function makeSound55(animal: Animal55) {
+  if (animal.type === "dog") {
+    // TypeScript knows that `animal` is a Dog in this block
+    animal.bark();
+  } else {
+    // TypeScript knows that `animal` is a Cat in this block
+    animal.meow();
+  }
+}
+
+const myDog: Dog55 = {
+  type: "dog",
+  name: "Buddy",
+  bark: () => {
+    console.log("Woof woof!");
+  }
+};
+
+makeSound55(myDog);
+
+// Check for properties
+function makeSound(animal: Animal55) {
+  if ("bark" in animal) {
+    // TypeScript knows that `animal` is a Dog in this block
+    animal.bark();
+  } else {
+    // TypeScript knows that `animal` is a Cat in this block
+    animal.meow();
+  }
+}
+
+const myCat: Cat55 = {
+  type: "cat",
+  name: "Whiskers",
+  meow: () => {
+    console.log("Meow!");
+  }
+};
+
+makeSound(myCat);
+
+///////////////////////////////
+// 56. Type Guards - "Truthy"/"Falsy" guard
+function printLength56(str: string | null | undefined) {
+  if (str) {
+    // In this block, TypeScript knows that `str` is a string
+    // because `null` and `undefined` are falsy values.
+    console.log(str.length);
+  } else {
+    console.log("No string provided!!!");
+  }
+}
+printLength56("hello string");
+printLength56(null);
+printLength56(undefined);
+
+///////////////////////////////
+// 57. Type Guards - instanceof
+
+///////////////////////////////
+// 58. Type Guards - Type Predicate
+
+///////////////////////////////
+// 59. Type Guards - "never" Gotcha
+
+///////////////////////////////
+// 60. Type Guards - Discriminated
+
+///////////////////////////////
+// 61. Generics - Intro

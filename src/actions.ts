@@ -1,4 +1,3 @@
-const susan51 = "susan 51";
 export let something = "something actions.ts";
 
 // 52. Modules - Imports/Exports (including types)
