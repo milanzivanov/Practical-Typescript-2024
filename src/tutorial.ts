@@ -1177,15 +1177,184 @@ printLength56(undefined);
 
 ///////////////////////////////
 // 57. Type Guards - instanceof
+try {
+  // Some code that may throw an error
+  throw new Error("This is an error");
+} catch (error) {
+  if (error instanceof Error) {
+    console.log("Caught an Error object: " + error.message);
+  } else {
+    console.log("Caught an unknown error");
+  }
+}
+
+//
+function checkInput57(input: Date | string): string {
+  if (input instanceof Date) {
+    return input.getFullYear().toString();
+  }
+  return input;
+}
+
+const year57 = checkInput57(new Date());
+const random57 = checkValue54("2020-05-05");
+console.log(year57);
+console.log(random57);
 
 ///////////////////////////////
 // 58. Type Guards - Type Predicate
+type Student58 = {
+  name: string;
+  study: () => void;
+};
+
+type User58 = {
+  name: string;
+  login: () => void;
+};
+
+type Person58 = Student58 | User58;
+
+const randomPerson58 = (): Person58 => {
+  return Math.random() > 0.5
+    ? { name: "milojko", study: () => console.log("Studying") }
+    : { name: "mica", study: () => console.log("Logging in") };
+};
+
+const person58 = randomPerson58();
+
+//
+function isStudent58(person: Person58): person is Student58 {
+  // return 'study' in person;
+  return (person as Student58).study !== undefined;
+}
+
+// Usage
+if (isStudent58(person58)) {
+  person58.study(); // This is safe because TypeScript knows that 'person' is a Student.
+} else {
+  person58.login();
+}
+
+console.log(person58.name);
 
 ///////////////////////////////
 // 59. Type Guards - "never" Gotcha
+type Student59 = {
+  name: string;
+  study: () => void;
+};
+
+type User59 = {
+  name: string;
+  login: () => void;
+};
+
+type Person59 = Student59 | User59;
+
+const person59: Person59 = {
+  name: "anna",
+  study: () => console.log("Sleeping")
+  // login: () => console.log('Logging in'),
+};
+// person;
+function isStudent59(person: Person59): person is Student59 {
+  // return 'study' in person;
+  return (person as Student59).study !== undefined;
+}
+
+// Usage
+if (isStudent59(person59)) {
+  person59.study(); // This is safe because TypeScript knows that 'person' is a Student.
+} else {
+  // in this case person is type "never"
+  console.log(person);
+}
 
 ///////////////////////////////
 // 60. Type Guards - Discriminated
+type IncrementAction60 = {
+  type: "increment";
+  amount: number;
+  timestamp: number;
+  user: string;
+};
+
+type DecrementAction60 = {
+  type: "decrement";
+  amount: number;
+  timestamp: number;
+  user: string;
+};
+
+type Action60 = IncrementAction60 | DecrementAction60;
+
+function reducer60(state: number, action: Action60): number {
+  switch (action.type) {
+    case "increment":
+      return state + action.amount;
+    case "decrement":
+      return state - action.amount;
+
+    default:
+      const unexpectedAction60: never = action;
+      throw new Error(`Unexpected action: ${unexpectedAction60}`);
+  }
+}
+
+const newState60 = reducer60(15, {
+  user: "john",
+  type: "increment",
+  amount: 5,
+  timestamp: 123456
+});
+
+console.log(newState60);
 
 ///////////////////////////////
 // 61. Generics - Intro
+
+// in Typescript, you can declare an array using two sytaxes
+
+// let array1: string[] = ["apple", "bannana", "mango"];
+// let array2: number[] = [1,2,3];
+// let array3: boolean[] = [true, false, false];
+
+let array1: Array<string> = ["apple", "bannana", "mango"];
+let array2: Array<number> = [1, 2, 3];
+let array3: Array<boolean> = [true, false, false];
+
+///////////////////////////////
+// 62. Generics - Create Generic Function and Interface
+function createString62(arg: string): string {
+  return arg;
+}
+function createNumber62(arg: number): number {
+  return arg;
+}
+
+// Define a generic function
+function genericFuction62<T>(arg: T): T {
+  return arg;
+}
+
+const someStringValue62 = genericFuction62<string>("Hello generics");
+const someStringNumber62 = genericFuction62<number>(62);
+
+console.log(someStringValue62);
+console.log(someStringNumber62);
+
+// Define a generic interface
+interface GenericInteface62<T> {
+  value: T;
+  getValue: () => T;
+}
+
+const genericString62: GenericInteface62<string> = {
+  value: "Zdravo svete",
+  getValue() {
+    return this.value;
+  }
+};
+
+console.log(genericString62);
