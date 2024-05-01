@@ -1358,3 +1358,17 @@ const genericString62: GenericInteface62<string> = {
 };
 
 console.log(genericString62);
+
+///////////////////////////////
+// 63. Generics - Promise Example
+// A Promise in JavaScript (and thus TypeScript) is an object representing the eventual completion or failure of an asynchronous operation.
+
+async function someFunc63(): Promise<string> {
+  return "Hello Promise";
+}
+
+const result63 = someFunc63();
+console.log(result63);
+
+///////////////////////////////
+// 64. Generics - Generate Array
