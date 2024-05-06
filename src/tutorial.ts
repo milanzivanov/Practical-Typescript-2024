@@ -1,4 +1,5 @@
-// Type annotation
+/////////////////////////
+// 01. Type annotation
 
 let awesomeName: string = "shakeAndBake";
 awesomeName = "text";
@@ -9,6 +10,7 @@ console.log(awesomeName);
 let amount: number = 41;
 amount = 41 + 5;
 // amount = "text"
+console.log(amount);
 
 let isAwesome: boolean = true;
 isAwesome = false;
@@ -18,6 +20,7 @@ isAwesome = false;
 // let awesomeName2: string = "shakeAndBake";
 let awesomeName2 = "shakeAndBake";
 
+/////////////////////
 // first challenge
 
 // - Create a variable of type string and try to invoke a string method on it.
