@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { something } from "./actions";
 /////////////////////////
 // 01. Type annotation
 
@@ -1066,7 +1068,7 @@ console.log(getColorName(Color50.Blue));
 
 ///////////////////////////////
 // 51. Modules - intro
-import { something } from "./actions";
+// import { something } from "./actions";
 let name51 = "ShakeAndBake51";
 const susan51 = "susan 51";
 
@@ -1375,3 +1377,248 @@ console.log(result63);
 
 ///////////////////////////////
 // 64. Generics - Generate Array
+
+///////////////////////////////
+// 69. Fetch Data - Basic
+// const url = "https://www.course-api.com/react-tours-project";
+
+// async function fetchData(url: string) {
+//   try {
+//     const response = await fetch(url);
+//     // Check if the request was successful
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     const data = await response.json();
+//     return data;
+//   } catch (error) {
+//     const errMsg =
+//       error instanceof Error ? error.message : "There was a error...";
+//     console.error(errMsg);
+//     // Throw error
+//     return [];
+//   }
+// }
+
+// const tours = await fetchData(url);
+// tours.map((tour: any) => console.log(tour.name));
+
+// return empty array
+// throw error in catch block
+// we are not setting state values in this function
+
+///////////////////////////////
+// 70. Fetch Data - Setup Type & 71. Fetch Data - Gotcha
+// const url = "https://www.course-api.com/react-tours-project";
+
+// // Define a Type for the data you are fetching
+// type Tour = {
+//   id: string;
+//   name: string;
+//   info: string;
+//   image: string;
+//   price: string;
+//   // Add more fields as necessary.
+//   // something: boolean;
+// };
+
+// async function fetchData(url: string): Promise<Tour[]> {
+//   try {
+//     const response = await fetch(url);
+//     // Check if the request was successful
+//     if (!response.ok) {
+//       throw new Error(`HTTP error! status: ${response.status}`);
+//     }
+
+//     const data: Tour[] = await response.json();
+//     console.log(data);
+
+//     return data;
+//   } catch (error) {
+//     const errMsg =
+//       error instanceof Error ? error.message : "There was a error...";
+//     console.error(errMsg);
+//     // Throw error
+//     return [];
+//   }
+// }
+
+// const tours = await fetchData(url);
+// tours.map((tour) => console.log(tour.name));
+
+///////////////////////////////
+// 72. Zod Library
+const url = "https://www.course-api.com/react-tours-project";
+
+const tourSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  info: z.string(),
+  image: z.string(),
+  price: z.string()
+});
+
+// Define a Type for the data you are fetching
+type Tour = z.infer<typeof tourSchema>;
+
+async function fetchData(url: string): Promise<Tour[]> {
+  try {
+    const response = await fetch(url);
+    // Check if the request was successful
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const rowData: Tour[] = await response.json();
+    const result = tourSchema.array().safeParse(rowData);
+
+    if (!result.success) {
+      throw new Error(`Invalid data: ${result.error}`);
+    }
+
+    return result.data;
+  } catch (error) {
+    const errMsg =
+      error instanceof Error ? error.message : "There was a error...";
+    console.error(errMsg);
+    // Throw error
+    return [];
+  }
+}
+
+const tours = await fetchData(url);
+tours.map((tour) => console.log(tour.name));
+
+///////////////////////////////
+// 75. Classes - Intro
+class Book75 {
+  title: string;
+  author: string;
+  constructor(title: string, author: string) {
+    this.title = title;
+    this.author = author;
+  }
+}
+
+const deepWork75 = new Book75("Deep Work", "Cal Newport");
+console.log(deepWork75);
+
+///////////////////////////////
+// 76. Classes - Default Property
+class Book76 {
+  title: string;
+  author: string;
+  // checkedOut: boolean = false;
+  checkedOut = false;
+  constructor(title: string, author: string) {
+    this.title = title;
+    this.author = author;
+  }
+}
+
+const deepWork76 = new Book76("Deep Work 76", "Cal Newport 76");
+deepWork76.checkedOut = true;
+// deepWork76.checkedOut = "some text";
+console.log(deepWork76);
+
+///////////////////////////////
+// 77. Classes - Readonly Modifier
+class Book77 {
+  readonly title: string;
+  author: string;
+  checkedOut: boolean = false;
+  constructor(title: string, author: string) {
+    this.title = title;
+    this.author = author;
+  }
+}
+
+const deepWork77 = new Book77("deep work 77", "cal newport 77");
+// deepWork77.title = "something else";
+console.log(deepWork77.title);
+
+// 78. Classes - Public and Private
+class Book78 {
+  readonly title: string;
+  public author: string;
+  private checkedOut: boolean = false;
+  constructor(title: string, author: string) {
+    this.title = title;
+    this.author = author;
+  }
+  public checkOut() {
+    this.checkedOut = this.toggleCheckedOutStatus();
+  }
+  public isCheckedOut() {
+    return this.checkedOut;
+  }
+
+  private toggleCheckedOutStatus() {
+    return !this.checkedOut;
+  }
+}
+
+const deepWork78 = new Book78("Deep Work 78", "Cal Newport 78");
+deepWork78.checkOut();
+console.log(deepWork78.isCheckedOut());
+// deepWork78.toggleCheckedOutStatus();
+
+// 79. Classes - Constructor Shortcut
+class Book79 {
+  private checkedOut: boolean = true;
+  constructor(public readonly title: string, public author: string) {}
+
+  checkedIn() {
+    return this.checkedOut;
+  }
+}
+const deepWork79 = new Book79("Deep Work 79", "Cal Newport 79");
+console.log(deepWork79.checkedIn());
+
+// 80. Classes - Getters an Setters
+class Book80 {
+  private checkedOut: boolean = false;
+  constructor(public readonly title: string, public author: string) {}
+  get info() {
+    return `${this.title} by ${this.author}.`;
+  }
+
+  set checkOut(checkedOut: boolean) {
+    this.checkedOut = checkedOut;
+  }
+
+  get checkOut() {
+    return this.checkedOut;
+  }
+
+  public get someInfo() {
+    this.checkOut = true;
+    return `${this.title} by ${this.author} and it is ${this.checkOut} story.`;
+  }
+}
+
+const deepWork80 = new Book80("Deep Work 80", "Cal Newport 80");
+console.log(deepWork80.info);
+// deepWork80.checkOut = false;
+console.log(deepWork80.checkOut);
+console.log(deepWork80.someInfo);
+
+// 81. Classes - Implement Interface
+interface IPerson {
+  name: string;
+  age: number;
+  greet(): void;
+}
+
+class Person81 implements IPerson {
+  constructor(public name: string, public age: number) {}
+  greet(): void {
+    console.log(
+      `Hello, my name is ${this.name} and I am ${this.age} years old.`
+    );
+  }
+}
+
+const hipster = new Person81("Milan", 41);
+hipster.greet();
