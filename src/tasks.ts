@@ -13,7 +13,15 @@ type Task = {
   isComplited: boolean;
 };
 
-const tasks: Task[] = [];
+const tasks: Task[] = loadTasks();
+
+tasks.forEach((task) => renderTask(task));
+// tasks.forEach(renderTask);
+
+function loadTasks(): Task[] {
+  const storedTaks = localStorage.getItem("tasks");
+  return storedTaks ? JSON.parse(storedTaks) : [];
+}
 
 taskForm?.addEventListener("submit", createTask);
 
@@ -26,16 +34,19 @@ function createTask(event: SubmitEvent) {
       isComplited: false
     };
     // add task to list
-    addtask(task);
+    addTask(task);
     // render tasks
     renderTask(task);
     // update localstorage
+    updateStorage();
+
     formInput.value = "";
     return;
   }
   alert("Please enter a task descripition!!!");
 }
-function addtask(task: Task): void {
+
+function addTask(task: Task): void {
   tasks.push(task);
   console.log(tasks);
 }
@@ -43,5 +54,22 @@ function addtask(task: Task): void {
 function renderTask(task: Task): void {
   const taskElement = document.createElement("li");
   taskElement.textContent = task.description;
+
+  // checkbox
+  const taskCheckbox = document.createElement("input");
+  taskCheckbox.type = "checkbox";
+  taskCheckbox.checked = task.isComplited;
+
+  // toggle checkbox
+  taskCheckbox.addEventListener("change", () => {
+    task.isComplited = !task.isComplited;
+    updateStorage();
+  });
+
   taskListElement?.appendChild(taskElement);
+  taskElement.appendChild(taskCheckbox);
+}
+
+function updateStorage(): void {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }

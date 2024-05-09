@@ -1276,8 +1276,8 @@ if (isStudent59(person59)) {
   console.log(person);
 }
 
-///////////////////////////////
-// 60. Type Guards - Discriminated
+///////////////////////////////////////////
+// 60. Type Guards - Discriminated Unions
 type IncrementAction60 = {
   type: "increment";
   amount: number;
@@ -1366,7 +1366,8 @@ console.log(genericString62);
 
 ///////////////////////////////
 // 63. Generics - Promise Example
-// A Promise in JavaScript (and thus TypeScript) is an object representing the eventual completion or failure of an asynchronous operation.
+// A Promise in JavaScript (and thus TypeScript) is an object representing the eventual completion
+// or failure of an asynchronous operation.
 
 async function someFunc63(): Promise<string> {
   return "Hello Promise";
@@ -1377,6 +1378,134 @@ console.log(result63);
 
 ///////////////////////////////
 // 64. Generics - Generate Array
+
+// generate an arrays of strings
+function generateStringArray(length: number, value: string): string[] {
+  let result64: string[] = [];
+  result64 = Array(length).fill(value);
+  return result64;
+}
+
+console.log(generateStringArray(5, "Milan"));
+
+function createArray64<T>(length: number, value: T): Array<T> {
+  let result64: T[] = [];
+  result64 = Array(length).fill(value);
+  return result64;
+}
+
+let arrayStrings = createArray64<string>(3, "hello generics");
+let arrayNumber = createArray64<number>(3, 7);
+
+console.log(arrayStrings);
+console.log(arrayNumber);
+
+///////////////////////////////
+// 65. Generics - Multiple Types
+function pair65<T, U>(param1: T, param2: U): [T, U] {
+  return [param1, param2];
+}
+
+// usage
+let result65 = pair65<number, string>(19, "Milan string 41");
+console.log(result65);
+
+///////////////////////////////
+// 66. Generics - Inferred Type and Type Constraints example 1
+function pair66<T, U>(param1: T, param2: U) {
+  return [param1, param2];
+}
+
+// usage
+let result66 = pair66("Micko", 123);
+console.log(result66);
+
+//  const [name,setName] = useState('')
+// const [products, setProducts] = useState<Product[]>([])
+
+// type constraint on the generic type T,
+// generic type can be either a number or a string.
+function processValue66<T extends number | string>(value: T) {
+  console.log(value);
+}
+
+processValue66("Milandarius");
+processValue66(1919);
+// processValue66(true)
+
+///////////////////////////////
+// 67. Generics - Type Constraints example 2
+type Car67 = {
+  brand: string;
+  model: string;
+};
+
+const car67: Car67 = {
+  brand: "zeler",
+  model: "blue rocket"
+};
+
+type Product67 = {
+  name: string;
+  price: number;
+};
+
+const product67: Product67 = {
+  name: "dolomite",
+  price: 2000
+};
+
+type Student67 = {
+  name: string;
+  age: number;
+};
+
+const student67: Student67 = {
+  name: "Milano 41",
+  age: 41
+};
+
+// T extends Student is a type constraint on the generic type T.
+// It means that the type T can be any type, but it must be a subtype of Student or Student itself.
+// In other words, T must have at least the same properties and methods that Student has.
+
+// function printName<T extends Student67>(input: T): void {
+//   console.log(input);
+//   console.log(input.name);
+// }
+
+// printName(student67);
+
+// function printName<T extends Student67 | Product67>(input: T): void {
+//   console.log(input.name);
+// }
+
+// printName(product67);
+
+// The extends { name: string } part is a type constraint on T. It means that T can be any type, but it must be an object that has at least a name property of type string.
+// In other words, T must have at least the same properties and methods that { name: string } has.
+function printName<T extends { name: string }>(input: T): void {
+  console.log(input.name);
+}
+
+printName(student67);
+printName(product67);
+
+///////////////////////////////
+// 68. Generics - Default Type
+interface StoreData68<T = any> {
+  data: T[];
+}
+
+const storeNumbers68: StoreData68<number> = {
+  data: [1, 2, 3, 4]
+};
+
+const random68: StoreData68 = {
+  data: [1, "random string", 68, 4]
+};
+
+console.log(storeNumbers68, random68);
 
 ///////////////////////////////
 // 69. Fetch Data - Basic
