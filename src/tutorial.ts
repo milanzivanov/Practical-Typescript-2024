@@ -1432,13 +1432,6 @@ console.log(result65);
 
 ///////////////////////////////
 // 66. Generics - Inferred Type and Type Constraints example 1
-function pair66<T, U>(param1: T, param2: U) {
-  return [param1, param2];
-}
-
-// usage
-let result66 = pair66("Micko", 123);
-console.log(result66);
 
 //  const [name,setName] = useState('')
 // const [products, setProducts] = useState<Product[]>([])
