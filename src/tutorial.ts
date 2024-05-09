@@ -1,3 +1,5 @@
+// github.com/john-smilga/typescript-course/blob/main/01-typescript-tutorial/README.md#install
+
 import { z } from "zod";
 import { something } from "./actions";
 /////////////////////////
@@ -18,12 +20,12 @@ let isAwesome: boolean = true;
 isAwesome = false;
 // isAwesome = "text name";
 
-// type inference
+// 08. type inference
 // let awesomeName2: string = "shakeAndBake";
 let awesomeName2 = "shakeAndBake";
 
 /////////////////////
-// first challenge
+// 09. first challenge
 
 // - Create a variable of type string and try to invoke a string method on it.
 let myName: string = "milan";
@@ -52,7 +54,8 @@ if (milan) {
 // Setup info
 console.log(myName, myAge, isAdult);
 
-// Union type
+/////////////////////////
+// 11. Union type
 let tax: number | string = 10;
 tax = 100;
 tax = "$100";
@@ -62,14 +65,16 @@ requestStatus = "success";
 requestStatus = "error";
 // requestStatus = "random";
 
-// Type any
+/////////////////////////
+// 12. Type any
 let notSure: any = 4;
 notSure = "string text";
 notSure = false;
 
 let random;
 
-// Practical example
+/////////////////////////
+// 13.  Practical example
 const books = ["1984", "Brave New World", "Fahrenheit 451"];
 
 let foundBook: string | undefined;
@@ -97,7 +102,7 @@ let discount: number | string = 20;
 discount = "20%";
 // discount = true;
 
-// Arrays - Fundamentals
+// 15. Arrays - Fundamentals
 let prices: number[] = [100, 75, 55];
 // prices.push("hello");
 let fruit: string[] = ["apple", "bannana"];
@@ -127,7 +132,7 @@ let mixedArray: (number | string)[] = [41, 42, "milan", "ivan"];
 // Then, try to add a boolean value to it.
 // mixedArray.push(false);
 
-// Object Fundamentals
+// 17. Object Fundamentals
 let car: { brand: string; year: number } = {
   brand: "toyota",
   year: 2020
@@ -148,6 +153,7 @@ let notebook = { title: "notebook" };
 let items: { readonly title: string; cost?: number }[] = [book, pen, notebook];
 // items[0].title = "1984";
 
+/////////////////////////
 // Challenge Objects
 // - Create an object bike of type { brand: string, year: number } and assign it some values.
 let bike: { brand: string; year: number } = {
@@ -174,6 +180,7 @@ let product2 = { title: "t-shirt" };
 let products: { title: string; price?: number }[] = [product1, product2];
 // products.push({ title: "boots", price: "expensive" });
 
+/////////////////////////
 // 19.  Functions - Parameters
 function seyHi(name: string) {
   console.log(`Hello ${name}!!!`);
@@ -182,6 +189,7 @@ function seyHi(name: string) {
 seyHi("Milan");
 // seyHi(3);
 
+/////////////////////////
 // 20. Function -return
 function calculateDiscount(price: number): number {
   const hasDisount = true;
@@ -197,6 +205,7 @@ function calculateDiscount(price: number): number {
 const finalPrice = calculateDiscount(200);
 console.log(finalPrice);
 
+/////////////////////////
 // 21. Type: Any Example
 function addThree(number: any) {
   let anotherNumber: number = 3;
@@ -208,6 +217,7 @@ const someValue = result;
 // someValue.myMethod();
 console.log(someValue);
 
+/////////////////////////
 // // 22. Challenge -Functions 1
 // - Create a new array of names.
 const names2: string[] = ["Milan", "Ivan", "Djurica"];
@@ -226,6 +236,7 @@ if (isNameInList(nameToCheck)) {
 }
 isNameInList(nameToCheck);
 
+/////////////////////////
 // 23. Functions - Optional Parameters
 function calculatePrice(price: number, discount?: number) {
   return price - (discount || 0);
@@ -234,6 +245,7 @@ function calculatePrice(price: number, discount?: number) {
 let priceAfterDiscount = calculatePrice(100, 20);
 console.log(priceAfterDiscount);
 
+/////////////////////////
 // 24. Functions - Default Parameters
 function calculateScore(
   initialScore: number,
@@ -244,6 +256,7 @@ function calculateScore(
 let scoreAfterPenalty = calculateScore(100, 10);
 let scoreWithoutPenalty = calculateScore(300);
 
+/////////////////////////
 // 25. Functions - Rest Parameters
 function sum(message: string, ...numbers: number[]): string {
   const doubled = numbers.map((num) => num * 2);
@@ -258,6 +271,7 @@ function sum(message: string, ...numbers: number[]): string {
 let result2 = sum("The total is: ", 1, 2, 3, 4, 5);
 console.log(result2);
 
+/////////////////////////
 // 26. Functions - Void Keyword
 function logMessege(msg: string): void {
   console.log(msg);
@@ -265,6 +279,7 @@ function logMessege(msg: string): void {
 }
 logMessege("hello, Typescript");
 
+/////////////////////////
 // 27. Functions - Type Guards
 // Your task is to create a function named processInput that accepts a parameter of a union type string | number.
 // The function should behave as follows:
@@ -284,6 +299,7 @@ function processInput(input: string | number) {
 processInput("milandarius");
 processInput(41);
 
+/////////////////////////
 // 28. Functions - Using Objects as Function Parameters
 function createEmployee({ id }: { id: number }): {
   id: number;
@@ -311,6 +327,7 @@ const newStudent = {
 
 createStudent(newStudent);
 
+/////////////////////////
 // 29. Excess Property Checks
 function createStudent2(student: { id: number; name: string }): void {
   console.log(`Welcome to the course ${student.name.toUpperCase()}`);
@@ -355,6 +372,7 @@ console.log(processData("milan", { reverse: true }));
 // - If the reverse property on the config object is true, and input is a string,
 // the function should return the reversed string in uppercase.
 
+/////////////////////////
 // 31. Type Alias
 
 type User = { id: number; name: string; isActive: boolean };
@@ -439,6 +457,7 @@ const sredoje: Manager = {
 printStaffDetails(milan2); // Outputs: Alice is an employee in the Sales department.
 printStaffDetails(sredoje);
 
+/////////////////////////
 // 34. Intersection Types
 type Book = { id: number; name: string; price: number };
 type DiscountedBook = Book & { discount: number };
@@ -461,6 +480,7 @@ const discountdBook: DiscountedBook = {
   discount: 0.15
 };
 
+/////////////////////////
 // 35. Type Alias - Computed Properties
 const propName = "age";
 type Animal = {
