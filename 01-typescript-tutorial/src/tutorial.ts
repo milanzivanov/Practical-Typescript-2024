@@ -1,6 +1,5 @@
 // github.com/john-smilga/typescript-course/blob/main/01-typescript-tutorial/README.md#install
 
-import { z } from "zod";
 import { something } from "./actions";
 /////////////////////////
 // 01. Type annotation
@@ -8,8 +7,8 @@ import { something } from "./actions";
 let awesomeName: string = "shakeAndBake";
 awesomeName = "text";
 awesomeName = awesomeName.toUpperCase();
-console.log(awesomeName);
 // awesomeName = 41;
+// console.log(awesomeName);
 
 let amount: number = 41;
 amount = 41 + 5;
@@ -30,15 +29,15 @@ let awesomeName2 = "shakeAndBake";
 // - Create a variable of type string and try to invoke a string method on it.
 let myName: string = "milan";
 myName = myName.toUpperCase();
-console.log(myName);
+// console.log(myName);
 // - Create a variable of type number and try to perform a mathematical operation on it.
 let myAge: number = 41;
 myAge = myAge + 100;
-console.log(myAge);
+// console.log(myAge);
 // - Create a variable of type boolean and try to perform a logical operation on it.
 let milan: boolean = true;
 let isAdult: boolean = myAge >= 18;
-console.log(isAdult);
+// console.log(isAdult);
 
 if (milan) {
   console.log("Milan iz good gay!!!");
@@ -52,26 +51,26 @@ if (milan) {
 // - You can use type annotation or inference
 
 // Setup info
-console.log(myName, myAge, isAdult);
+// console.log(myName, myAge, isAdult);
 
 /////////////////////////
 // 11. Union type
 let tax: number | string = 10;
 tax = 100;
-tax = "$100";
+tax = "100RSD";
 
 let requestStatus: "pending" | "success" | "error" = "pending";
 requestStatus = "success";
 requestStatus = "error";
+requestStatus = "pending";
 // requestStatus = "random";
+console.log("Union type", requestStatus);
 
 /////////////////////////
 // 12. Type any
 let notSure: any = 4;
 notSure = "string text";
 notSure = false;
-
-let random;
 
 /////////////////////////
 // 13.  Practical example
@@ -80,14 +79,14 @@ const books = ["1984", "Brave New World", "Fahrenheit 451"];
 let foundBook: string | undefined;
 
 for (let book of books) {
-  if (book === "1983") {
+  if (book === "1984") {
     foundBook = book;
     foundBook = foundBook.toUpperCase();
     break;
   }
 }
 
-console.log(foundBook?.length);
+console.log("13. Practical example", foundBook?.length);
 
 // Challenge Union Type
 // - Create a variable orderStatus of type 'processing' | 'shipped' | 'delivered' and assign it the value 'processing'.
@@ -116,7 +115,7 @@ let fruit: string[] = ["apple", "bannana"];
 // let names = ['peter', 'susan', 1];
 
 let names = ["milan", "ivan", 41, 42];
-let array: (string | boolean)[] = ["apple", true, "bannana"];
+let array: (string | boolean | number)[] = ["apple", true, "bannana", 41];
 
 // Challenge Arrays
 // - Create an array temperatures of type number[] and assign it some values.
@@ -178,6 +177,7 @@ let laptop: { brand: string; year: number } = {
 let product1 = { title: "lamp", price: 100 };
 let product2 = { title: "t-shirt" };
 let products: { title: string; price?: number }[] = [product1, product2];
+// products.push({ title: "boots", price: 150 });
 // products.push({ title: "boots", price: "expensive" });
 
 /////////////////////////
@@ -190,7 +190,7 @@ seyHi("Milan");
 // seyHi(3);
 
 /////////////////////////
-// 20. Function -return
+// 20. Function - return
 function calculateDiscount(price: number): number {
   const hasDisount = true;
 
@@ -212,7 +212,7 @@ function addThree(number: any) {
   return number + anotherNumber;
 }
 
-const result = addThree(3);
+const result = addThree(5);
 const someValue = result;
 // someValue.myMethod();
 console.log(someValue);
@@ -242,7 +242,8 @@ function calculatePrice(price: number, discount?: number) {
   return price - (discount || 0);
 }
 
-let priceAfterDiscount = calculatePrice(100, 20);
+let priceAfterDiscount = calculatePrice(100, 50);
+// let priceAfterDiscount = calculatePrice(100);
 console.log(priceAfterDiscount);
 
 /////////////////////////
@@ -339,7 +340,7 @@ const newStudent2 = {
   email: "micko@m.com"
 };
 
-createStudent(newStudent2);
+createStudent2(newStudent2);
 // createStudent({id: 1, name: "bob", email: "bob@b.com"});
 
 // Challenge
@@ -389,9 +390,11 @@ const susan: User = {
 };
 
 function createUser(user: User): User {
-  console.log(`Hello there ${user.name.toUpperCase()} !!!`);
+  console.log(`${user.id} - Hello there ${user.name.toUpperCase()} !!!`);
   return user;
 }
+
+createUser(susan);
 
 //
 type StringOrNumber = string | number; // Type alias for string | number
@@ -413,7 +416,8 @@ function setTheme(t: Theme) {
 
 setTheme("dark"); // This will set the theme to 'dark'
 
-// Challenge
+//////////////////////////
+// Challenge type alias
 
 // - Define the Employee type: Create a type Employee with properties id (number), name (string),
 // and department (string).
@@ -431,7 +435,7 @@ type Staff = Employee | Manager;
 // If it does, print a message indicating that the person is a manager and the number of employees they manage.
 // If it doesn't, print a message indicating that the person is an employee and the department they belong to.
 function printStaffDetails(staff: Staff) {
-  // tyoe gourd
+  // type gourd
   if ("employees" in staff) {
     console.log(
       `${staff.name} is a manager of ${staff.employees.length} employees.`
@@ -538,7 +542,7 @@ const deepWork2: BookMethods = {
 };
 
 deepWork2.printAuthor();
-const result3 = deepWork2.printTitle("It is awesom book");
+const result3 = deepWork2.printTitle("It is an awesome book");
 console.log(result3);
 
 //////////////////////////////////////////
@@ -698,14 +702,14 @@ interface Person41 {
 }
 
 // Define the DogOwner interface Next, define a DogOwner interface that extends Person and adds a dogName property of type string.
-interface DogOwner4 extends Person41 {
+interface DogOwner41 extends Person41 {
   dogName: string;
 }
 
 // Define the Manager interface Then, define a Manager interface that extends Person and adds two methods:
 // managePeople and delegateTasks.
 // Both methods should have a return type of void.
-interface Maneger4 extends Person41 {
+interface Maneger41 extends Person41 {
   managePeople(): void;
   delegateTasks(): void;
 }
@@ -713,7 +717,7 @@ interface Maneger4 extends Person41 {
 // Define the getEmployee function Now, define a function called getEmployee that returns a Person, DogOwner, or Manager.
 // Inside this function, generate a random number and use it to decide which type of object to return. If the number is less than 0.33,
 // return a Person. If it's less than 0.66, return a DogOwner. Otherwise, return a Manager.
-function getEmployee(): Person41 | DogOwner4 | Maneger4 {
+function getEmployee(): Person41 | DogOwner41 | Maneger41 {
   const random = Math.random();
 
   if (random < 0.33) {
@@ -736,7 +740,7 @@ function getEmployee(): Person41 | DogOwner4 | Maneger4 {
 
 // Finally, create a variable called employee that can be a Person, DogOwner, or Manager, and assign it the return value of getEmployee.
 // Then, log employee to the console.
-const employee4: Person41 | DogOwner4 | Maneger4 = getEmployee();
+const employee4: Person41 | DogOwner41 | Maneger41 = getEmployee();
 console.log(employee4);
 
 console.log(employee4);
@@ -773,7 +777,8 @@ if (isManager(employee41)) {
 }
 
 // 43. Interface vs Type Alias
-// A type alias is a way to give a name to a type. It can represent primitive types, union types, intersection types, tuples, and any other types. Once defined, the alias can be used anywhere in place of the actual type.
+// A type alias is a way to give a name to a type. It can represent primitive types, union types, intersection types, tuples,
+// and any other types. Once defined, the alias can be used anywhere in place of the actual type.
 type Person43 = {
   name: string;
   age: number;
@@ -783,7 +788,8 @@ let milan43: Person43 = { name: "Milan", age: 41 };
 
 // Key Differences
 
-// Type aliases can represent primitive types, union types, intersection types, tuples, etc., while interfaces are primarily used to represent the shape of an object.
+// Type aliases can represent primitive types, union types, intersection types, tuples, etc.,
+// while interfaces are primarily used to represent the shape of an object.
 // Type alias for a primitive type
 type Score = number;
 type NumberOrString = number | string;
@@ -794,7 +800,9 @@ type Direction = "up" | "down" | "left" | "right";
 let gameScore: Score = 100;
 let move: Direction = "up";
 
-// Interfaces can be merged using declaration merging. If you define an interface with the same name more than once, TypeScript will merge their definitions. Type aliases can't be merged in this way.
+// Interfaces can be merged using declaration merging. If you define an interface with the same name more than once,
+// TypeScript will merge their definitions.
+// Type aliases can't be merged in this way.
 
 // Interfaces can be implemented by classes, while type aliases cannot.
 
@@ -848,7 +856,8 @@ console.log(susan44);
 
 /////////////////////
 // 45. Enums
-// Enums in TypeScript allow us to define a set of named constants. Using enums can make it easier to document intent, or create a set of distinct cases.
+// Enums in TypeScript allow us to define a set of named constants.
+// Using enums can make it easier to document intent, or create a set of distinct cases.
 
 enum ServerResponseStatus {
   Success = 200,
@@ -873,44 +882,41 @@ console.log(response);
 
 ///////////////////////////////
 // 46. Enums - Gotcha: reverse mapping
-// enum ServerResponseStatus46 {
-//   Success = "Success",
-//   Error = "Error"
-// }
+enum ServerResponseStatus46 {
+  Success2 = "Success2",
+  Error2 = "Error2"
+}
 
-// Object.values(ServerResponseStatus46).forEach((value) => console.log(value));
+Object.values(ServerResponseStatus46).forEach((value) => console.log(value));
 
-//
-// enum ServerResponseStatus46 {
-//   Success = 200,
-//   Error = 500
-// }
+enum ServerResponseStatus46 {
+  Success3 = 200,
+  Error3 = 500
+}
 
-// Object.values(ServerResponseStatus46).forEach((value) => {
-//   if (typeof value === "number") {
-//     console.log(value);
-//   }
-// });
+Object.values(ServerResponseStatus46).forEach((value) => {
+  if (typeof value === "number") {
+    console.log(value);
+  }
+});
 
-//
-// enum NumericEnum {
-//   Member = 1
-// }
+enum NumericEnum {
+  Member = 1
+}
 
-// enum StringEnum {
-//   Member = "Value"
-// }
+enum StringEnum {
+  Member = "Value"
+}
 
-// let numericEnumValue: NumericEnum = 1; // This is allowed
-// console.log(numericEnumValue); // 1
+let numericEnumValue: NumericEnum = 1; // This is allowed
+console.log(numericEnumValue); // 1
 
-// // let stringEnumValue: StringEnum = "Value"; // This is not allowed
+// let stringEnumValue: StringEnum = "Value"; // This is not allowed
 
-//
-// enum ServerResponseStatus46 {
-//   Success = "Success",
-//   Error = "Error"
-// }
+enum ServerResponseStatus46 {
+  Success = "Success",
+  Error = "Error"
+}
 
 // function getServerResponse46(): ServerResponse {
 //   return {
@@ -979,7 +985,10 @@ let dogObject48 = JSON.parse(dogString48);
 let bird48 = birdObject48 as Bird48;
 let dog48 = dogObject48 as Bird48;
 
-console.log(bird48.name);
+// let birdObjectTest = JSON.stringify(birdObject48);
+// console.log(birdObjectTest);
+
+console.log(bird48);
 console.log(dog48.name);
 
 //
@@ -997,8 +1006,11 @@ type User48 = {
 // retrieve string from the DB
 const statusValue48 = "pending";
 
-const user48: User48 = { name: "Milan48", status: statusValue48 as Status48 };
-console.log(user48);
+const user48: User48 = {
+  name: "Milan48",
+  status: statusValue48 as Status48
+};
+console.log(user48.status);
 
 ///////////////////////////////
 // 49. Type unknown
@@ -1045,7 +1057,7 @@ try {
 
 type Theme50 = "light" | "dark";
 
-function checkTheme50(theme: Theme50) {
+function checkTheme50(theme: Theme50): void {
   if (theme === "light") {
     console.log("light theme");
     return;
@@ -1054,7 +1066,7 @@ function checkTheme50(theme: Theme50) {
     console.log("dark theme");
     return;
   }
-  // theme is of the type never, because it can never havea value that is not "light" od "dark"
+  // theme is of the type never, because it can never have a value that is not "light" od "dark"
   theme;
 }
 
@@ -1063,7 +1075,8 @@ checkTheme50("dark");
 //
 enum Color50 {
   Red,
-  Blue
+  Blue,
+  Green
 }
 console.log(Color50);
 
@@ -1073,18 +1086,20 @@ function getColorName(color: Color50) {
       return "Red";
     case Color50.Blue:
       return "Blue";
+    case Color50.Green:
+      return "Green";
 
     default:
       // at build time
       let unexpoctedColor50: never = color;
-      // at build time
+      // at runtime
       throw new Error(`Unexpected color value ${unexpoctedColor50}`);
   }
 }
 
 console.log(getColorName(Color50.Red));
 console.log(getColorName(Color50.Blue));
-// console.log(getColorName(Color50.Green));
+console.log(getColorName(Color50.Green));
 
 ///////////////////////////////
 // 51. Modules - intro
@@ -1097,6 +1112,8 @@ console.log(something);
 ///////////////////////////////
 // 52. Modules - Imports/Exports (including types)
 import newStudent52, { sayHello52, person52, type Student52 } from "./actions";
+// import { someValue as exampleValue } from "./example";
+// console.log(exampleValue);
 
 sayHello52("Typescript 52");
 console.log(person52);
@@ -1114,653 +1131,3 @@ console.log(anotherStudent52);
 // When you set "allowJs": true in your tsconfig.json, TypeScript will process JavaScript files and can infer types to a certain extent based on the structure and usage of your JavaScript code.
 
 // However, TypeScript's ability to infer types from JavaScript is not as robust as when working with TypeScript files. For example, it might not be able to infer complex types or types that depend on runtime behavior.
-
-///////////////////////////////
-// 54. Type - "typeof" Guards
-type ValueType54 = string | number | boolean;
-let value54: ValueType54;
-const random54 = Math.random();
-
-value54 = random54 < 0.33 ? "Hello" : random54 < 0.66 ? 123.456 : true;
-console.log(value54);
-
-function checkValue54(value: ValueType54) {
-  if (typeof value === "string") {
-    console.log(value.toLowerCase());
-    return;
-  }
-  if (typeof value === "number") {
-    console.log(value.toFixed(2));
-    return;
-  }
-  console.log(`boolean: ${value}`);
-}
-
-checkValue54(value);
-
-///////////////////////////////
-// 55. Type Guards - Equality Narrowing
-type Dog55 = { type: "dog"; name: string; bark: () => void };
-type Cat55 = { type: "cat"; name: string; meow: () => void };
-type Animal55 = Dog55 | Cat55;
-
-function makeSound55(animal: Animal55) {
-  if (animal.type === "dog") {
-    // TypeScript knows that `animal` is a Dog in this block
-    animal.bark();
-  } else {
-    // TypeScript knows that `animal` is a Cat in this block
-    animal.meow();
-  }
-}
-
-const myDog: Dog55 = {
-  type: "dog",
-  name: "Buddy",
-  bark: () => {
-    console.log("Woof woof!");
-  }
-};
-
-makeSound55(myDog);
-
-// Check for properties
-function makeSound(animal: Animal55) {
-  if ("bark" in animal) {
-    // TypeScript knows that `animal` is a Dog in this block
-    animal.bark();
-  } else {
-    // TypeScript knows that `animal` is a Cat in this block
-    animal.meow();
-  }
-}
-
-const myCat: Cat55 = {
-  type: "cat",
-  name: "Whiskers",
-  meow: () => {
-    console.log("Meow!");
-  }
-};
-
-makeSound(myCat);
-
-///////////////////////////////
-// 56. Type Guards - "Truthy"/"Falsy" guard
-function printLength56(str: string | null | undefined) {
-  if (str) {
-    // In this block, TypeScript knows that `str` is a string
-    // because `null` and `undefined` are falsy values.
-    console.log(str.length);
-  } else {
-    console.log("No string provided!!!");
-  }
-}
-printLength56("hello string");
-printLength56(null);
-printLength56(undefined);
-
-///////////////////////////////
-// 57. Type Guards - instanceof
-try {
-  // Some code that may throw an error
-  throw new Error("This is an error");
-} catch (error) {
-  if (error instanceof Error) {
-    console.log("Caught an Error object: " + error.message);
-  } else {
-    console.log("Caught an unknown error");
-  }
-}
-
-//
-function checkInput57(input: Date | string): string {
-  if (input instanceof Date) {
-    return input.getFullYear().toString();
-  }
-  return input;
-}
-
-const year57 = checkInput57(new Date());
-const random57 = checkValue54("2020-05-05");
-console.log(year57);
-console.log(random57);
-
-///////////////////////////////
-// 58. Type Guards - Type Predicate
-type Student58 = {
-  name: string;
-  study: () => void;
-};
-
-type User58 = {
-  name: string;
-  login: () => void;
-};
-
-type Person58 = Student58 | User58;
-
-const randomPerson58 = (): Person58 => {
-  return Math.random() > 0.5
-    ? { name: "milojko", study: () => console.log("Studying") }
-    : { name: "mica", study: () => console.log("Logging in") };
-};
-
-const person58 = randomPerson58();
-
-//
-function isStudent58(person: Person58): person is Student58 {
-  // return 'study' in person;
-  return (person as Student58).study !== undefined;
-}
-
-// Usage
-if (isStudent58(person58)) {
-  person58.study(); // This is safe because TypeScript knows that 'person' is a Student.
-} else {
-  person58.login();
-}
-
-console.log(person58.name);
-
-///////////////////////////////
-// 59. Type Guards - "never" Gotcha
-type Student59 = {
-  name: string;
-  study: () => void;
-};
-
-type User59 = {
-  name: string;
-  login: () => void;
-};
-
-type Person59 = Student59 | User59;
-
-const person59: Person59 = {
-  name: "anna",
-  study: () => console.log("Sleeping")
-  // login: () => console.log('Logging in'),
-};
-// person;
-function isStudent59(person: Person59): person is Student59 {
-  // return 'study' in person;
-  return (person as Student59).study !== undefined;
-}
-
-// Usage
-if (isStudent59(person59)) {
-  person59.study(); // This is safe because TypeScript knows that 'person' is a Student.
-} else {
-  // in this case person is type "never"
-  console.log(person);
-}
-
-///////////////////////////////////////////
-// 60. Type Guards - Discriminated Unions
-type IncrementAction60 = {
-  type: "increment";
-  amount: number;
-  timestamp: number;
-  user: string;
-};
-
-type DecrementAction60 = {
-  type: "decrement";
-  amount: number;
-  timestamp: number;
-  user: string;
-};
-
-type Action60 = IncrementAction60 | DecrementAction60;
-
-function reducer60(state: number, action: Action60): number {
-  switch (action.type) {
-    case "increment":
-      return state + action.amount;
-    case "decrement":
-      return state - action.amount;
-
-    default:
-      const unexpectedAction60: never = action;
-      throw new Error(`Unexpected action: ${unexpectedAction60}`);
-  }
-}
-
-const newState60 = reducer60(15, {
-  user: "john",
-  type: "increment",
-  amount: 5,
-  timestamp: 123456
-});
-
-console.log(newState60);
-
-///////////////////////////////
-// 61. Generics - Intro
-
-// in Typescript, you can declare an array using two sytaxes
-
-// let array1: string[] = ["apple", "bannana", "mango"];
-// let array2: number[] = [1,2,3];
-// let array3: boolean[] = [true, false, false];
-
-let array1: Array<string> = ["apple", "bannana", "mango"];
-let array2: Array<number> = [1, 2, 3];
-let array3: Array<boolean> = [true, false, false];
-
-///////////////////////////////
-// 62. Generics - Create Generic Function and Interface
-function createString62(arg: string): string {
-  return arg;
-}
-function createNumber62(arg: number): number {
-  return arg;
-}
-
-// Define a generic function
-function genericFuction62<T>(arg: T): T {
-  return arg;
-}
-
-const someStringValue62 = genericFuction62<string>("Hello generics");
-const someStringNumber62 = genericFuction62<number>(62);
-
-console.log(someStringValue62);
-console.log(someStringNumber62);
-
-// Define a generic interface
-interface GenericInteface62<T> {
-  value: T;
-  getValue: () => T;
-}
-
-const genericString62: GenericInteface62<string> = {
-  value: "Zdravo svete",
-  getValue() {
-    return this.value;
-  }
-};
-
-console.log(genericString62);
-
-///////////////////////////////
-// 63. Generics - Promise Example
-// A Promise in JavaScript (and thus TypeScript) is an object representing the eventual completion
-// or failure of an asynchronous operation.
-
-async function someFunc63(): Promise<string> {
-  return "Hello Promise";
-}
-
-const result63 = someFunc63();
-console.log(result63);
-
-///////////////////////////////
-// 64. Generics - Generate Array
-
-// generate an arrays of strings
-function generateStringArray(length: number, value: string): string[] {
-  let result64: string[] = [];
-  result64 = Array(length).fill(value);
-  return result64;
-}
-
-console.log(generateStringArray(5, "Milan"));
-
-function createArray64<T>(length: number, value: T): Array<T> {
-  let result64: T[] = [];
-  result64 = Array(length).fill(value);
-  return result64;
-}
-
-let arrayStrings = createArray64<string>(3, "hello generics");
-let arrayNumber = createArray64<number>(3, 7);
-
-console.log(arrayStrings);
-console.log(arrayNumber);
-
-///////////////////////////////
-// 65. Generics - Multiple Types
-function pair65<T, U>(param1: T, param2: U): [T, U] {
-  return [param1, param2];
-}
-
-// usage
-let result65 = pair65<number, string>(19, "Milan string 41");
-console.log(result65);
-
-///////////////////////////////
-// 66. Generics - Inferred Type and Type Constraints example 1
-
-//  const [name,setName] = useState('')
-// const [products, setProducts] = useState<Product[]>([])
-
-// type constraint on the generic type T,
-// generic type can be either a number or a string.
-function processValue66<T extends number | string>(value: T) {
-  console.log(value);
-}
-
-processValue66("Milandarius");
-processValue66(1919);
-// processValue66(true)
-
-///////////////////////////////
-// 67. Generics - Type Constraints example 2
-type Car67 = {
-  brand: string;
-  model: string;
-};
-
-const car67: Car67 = {
-  brand: "zeler",
-  model: "blue rocket"
-};
-
-type Product67 = {
-  name: string;
-  price: number;
-};
-
-const product67: Product67 = {
-  name: "dolomite",
-  price: 2000
-};
-
-type Student67 = {
-  name: string;
-  age: number;
-};
-
-const student67: Student67 = {
-  name: "Milano 41",
-  age: 41
-};
-
-// T extends Student is a type constraint on the generic type T.
-// It means that the type T can be any type, but it must be a subtype of Student or Student itself.
-// In other words, T must have at least the same properties and methods that Student has.
-
-// function printName<T extends Student67>(input: T): void {
-//   console.log(input);
-//   console.log(input.name);
-// }
-
-// printName(student67);
-
-// function printName<T extends Student67 | Product67>(input: T): void {
-//   console.log(input.name);
-// }
-
-// printName(product67);
-
-// The extends { name: string } part is a type constraint on T. It means that T can be any type, but it must be an object that has at least a name property of type string.
-// In other words, T must have at least the same properties and methods that { name: string } has.
-function printName<T extends { name: string }>(input: T): void {
-  console.log(input.name);
-}
-
-printName(student67);
-printName(product67);
-
-///////////////////////////////
-// 68. Generics - Default Type
-interface StoreData68<T = any> {
-  data: T[];
-}
-
-const storeNumbers68: StoreData68<number> = {
-  data: [1, 2, 3, 4]
-};
-
-const random68: StoreData68 = {
-  data: [1, "random string", 68, 4]
-};
-
-console.log(storeNumbers68, random68);
-
-///////////////////////////////
-// 69. Fetch Data - Basic
-// const url = "https://www.course-api.com/react-tours-project";
-
-// async function fetchData(url: string) {
-//   try {
-//     const response = await fetch(url);
-//     // Check if the request was successful
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-
-//     const data = await response.json();
-//     return data;
-//   } catch (error) {
-//     const errMsg =
-//       error instanceof Error ? error.message : "There was a error...";
-//     console.error(errMsg);
-//     // Throw error
-//     return [];
-//   }
-// }
-
-// const tours = await fetchData(url);
-// tours.map((tour: any) => console.log(tour.name));
-
-// return empty array
-// throw error in catch block
-// we are not setting state values in this function
-
-///////////////////////////////
-// 70. Fetch Data - Setup Type & 71. Fetch Data - Gotcha
-// const url = "https://www.course-api.com/react-tours-project";
-
-// // Define a Type for the data you are fetching
-// type Tour = {
-//   id: string;
-//   name: string;
-//   info: string;
-//   image: string;
-//   price: string;
-//   // Add more fields as necessary.
-//   // something: boolean;
-// };
-
-// async function fetchData(url: string): Promise<Tour[]> {
-//   try {
-//     const response = await fetch(url);
-//     // Check if the request was successful
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! status: ${response.status}`);
-//     }
-
-//     const data: Tour[] = await response.json();
-//     console.log(data);
-
-//     return data;
-//   } catch (error) {
-//     const errMsg =
-//       error instanceof Error ? error.message : "There was a error...";
-//     console.error(errMsg);
-//     // Throw error
-//     return [];
-//   }
-// }
-
-// const tours = await fetchData(url);
-// tours.map((tour) => console.log(tour.name));
-
-///////////////////////////////
-// 72. Zod Library
-const url = "https://www.course-api.com/react-tours-project";
-
-const tourSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  info: z.string(),
-  image: z.string(),
-  price: z.string()
-});
-
-// Define a Type for the data you are fetching
-type Tour = z.infer<typeof tourSchema>;
-
-async function fetchData(url: string): Promise<Tour[]> {
-  try {
-    const response = await fetch(url);
-    // Check if the request was successful
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const rowData: Tour[] = await response.json();
-    const result = tourSchema.array().safeParse(rowData);
-
-    if (!result.success) {
-      throw new Error(`Invalid data: ${result.error}`);
-    }
-
-    return result.data;
-  } catch (error) {
-    const errMsg =
-      error instanceof Error ? error.message : "There was a error...";
-    console.error(errMsg);
-    // Throw error
-    return [];
-  }
-}
-
-const tours = await fetchData(url);
-tours.map((tour) => console.log(tour.name));
-
-///////////////////////////////
-// 75. Classes - Intro
-class Book75 {
-  title: string;
-  author: string;
-  constructor(title: string, author: string) {
-    this.title = title;
-    this.author = author;
-  }
-}
-
-const deepWork75 = new Book75("Deep Work", "Cal Newport");
-console.log(deepWork75);
-
-///////////////////////////////
-// 76. Classes - Default Property
-class Book76 {
-  title: string;
-  author: string;
-  // checkedOut: boolean = false;
-  checkedOut = false;
-  constructor(title: string, author: string) {
-    this.title = title;
-    this.author = author;
-  }
-}
-
-const deepWork76 = new Book76("Deep Work 76", "Cal Newport 76");
-deepWork76.checkedOut = true;
-// deepWork76.checkedOut = "some text";
-console.log(deepWork76);
-
-///////////////////////////////
-// 77. Classes - Readonly Modifier
-class Book77 {
-  readonly title: string;
-  author: string;
-  checkedOut: boolean = false;
-  constructor(title: string, author: string) {
-    this.title = title;
-    this.author = author;
-  }
-}
-
-const deepWork77 = new Book77("deep work 77", "cal newport 77");
-// deepWork77.title = "something else";
-console.log(deepWork77.title);
-
-// 78. Classes - Public and Private
-class Book78 {
-  readonly title: string;
-  public author: string;
-  private checkedOut: boolean = false;
-  constructor(title: string, author: string) {
-    this.title = title;
-    this.author = author;
-  }
-  public checkOut() {
-    this.checkedOut = this.toggleCheckedOutStatus();
-  }
-  public isCheckedOut() {
-    return this.checkedOut;
-  }
-
-  private toggleCheckedOutStatus() {
-    return !this.checkedOut;
-  }
-}
-
-const deepWork78 = new Book78("Deep Work 78", "Cal Newport 78");
-deepWork78.checkOut();
-console.log(deepWork78.isCheckedOut());
-// deepWork78.toggleCheckedOutStatus();
-
-// 79. Classes - Constructor Shortcut
-class Book79 {
-  private checkedOut: boolean = true;
-  constructor(public readonly title: string, public author: string) {}
-
-  checkedIn() {
-    return this.checkedOut;
-  }
-}
-const deepWork79 = new Book79("Deep Work 79", "Cal Newport 79");
-console.log(deepWork79.checkedIn());
-
-// 80. Classes - Getters an Setters
-class Book80 {
-  private checkedOut: boolean = false;
-  constructor(public readonly title: string, public author: string) {}
-  get info() {
-    return `${this.title} by ${this.author}.`;
-  }
-
-  set checkOut(checkedOut: boolean) {
-    this.checkedOut = checkedOut;
-  }
-
-  get checkOut() {
-    return this.checkedOut;
-  }
-
-  public get someInfo() {
-    this.checkOut = true;
-    return `${this.title} by ${this.author} and it is ${this.checkOut} story.`;
-  }
-}
-
-const deepWork80 = new Book80("Deep Work 80", "Cal Newport 80");
-console.log(deepWork80.info);
-// deepWork80.checkOut = false;
-console.log(deepWork80.checkOut);
-console.log(deepWork80.someInfo);
-
-// 81. Classes - Implement Interface
-interface IPerson {
-  name: string;
-  age: number;
-  greet(): void;
-}
-
-class Person81 implements IPerson {
-  constructor(public name: string, public age: number) {}
-  greet(): void {
-    console.log(
-      `Hello, my name is ${this.name} and I am ${this.age} years old.`
-    );
-  }
-}
-
-const hipster = new Person81("Milan", 41);
-hipster.greet();

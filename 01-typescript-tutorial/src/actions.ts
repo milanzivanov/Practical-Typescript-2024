@@ -5,7 +5,7 @@ export function sayHello52(name: string): void {
   console.log(`Hello ${name}`);
 }
 
-export let person52 = "Susan 52";
+export let person52 = "Milano 52";
 
 export type Student52 = {
   name: string;

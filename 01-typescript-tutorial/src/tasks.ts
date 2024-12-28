@@ -1,9 +1,22 @@
 ////////////////////////
 // 82-90. Tasks project
 
-// const btn = document.querySelector(".test-btn")! as HTMLButtonElement;
-// const btn = document.querySelector<HTMLButtonElement>(".test-btn")!;
+// The ! operator in TypeScript is officially known as the Non-null assertion operator.
+// It is used to assert that its preceding expression is not null or undefined.
 
+// type assertion
+// const btn = document.querySelector(".test-btn")! as HTMLButtonElement;
+
+// not null assertion operator
+// const btn = document.querySelector<HTMLButtonElement>(".test-btn")!;
+// btn.disabled = true;
+
+// const btn2 = document.querySelector<HTMLButtonElement>(".test-btn");
+// btn2?.addEventListener("click", () => {
+//   console.log("something");
+// });
+
+//
 const taskForm = document.querySelector<HTMLFormElement>(".form");
 const formInput = document.querySelector<HTMLInputElement>(".form-input");
 const taskListElement = document.querySelector<HTMLUListElement>(".list");
@@ -23,8 +36,6 @@ function loadTasks(): Task[] {
   return storedTaks ? JSON.parse(storedTaks) : [];
 }
 
-taskForm?.addEventListener("submit", createTask);
-
 function createTask(event: SubmitEvent) {
   event.preventDefault();
   const taskDescription = formInput?.value;
@@ -35,8 +46,10 @@ function createTask(event: SubmitEvent) {
     };
     // add task to list
     addTask(task);
+
     // render tasks
     renderTask(task);
+
     // update localstorage
     updateStorage();
 
@@ -45,6 +58,8 @@ function createTask(event: SubmitEvent) {
   }
   alert("Please enter a task descripition!!!");
 }
+
+taskForm?.addEventListener("submit", createTask);
 
 function addTask(task: Task): void {
   tasks.push(task);
