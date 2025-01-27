@@ -18,6 +18,7 @@ function Component() {
 
         const rowData: Tour[] = await response.json();
         const result = tourSchema.array().safeParse(rowData);
+        console.log("//////////", result);
 
         if (!result.success) {
           console.log(result.error.message);

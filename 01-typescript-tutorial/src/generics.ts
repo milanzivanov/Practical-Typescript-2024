@@ -85,7 +85,7 @@ function createArray<T>(length: number, value: T): Array<T> {
 }
 
 let arrayStrings = createArray<string>(3, "hello generics");
-let arrayNumber = createArray<number>(3, 7);
+let arrayNumber = createArray<number>(5, 7);
 
 console.log(arrayStrings);
 console.log(arrayNumber);
@@ -108,8 +108,9 @@ console.log(result);
 
 // type constraint on the generic type T,
 // generic type can be either a number or a string.
-function processValue<T extends string | number>(value: T) {
+function processValue<T extends string | number>(value: T): T {
   console.log(value);
+  return value;
 }
 
 processValue("Milandarius");
@@ -142,7 +143,7 @@ const product: Product = {
 };
 
 const student: Student = {
-  name: "Milano 41",
+  name: "Milan",
   age: 41
 };
 
@@ -150,18 +151,19 @@ const student: Student = {
 // It means that the type T can be any type, but it must be a subtype of Student or Student itself.
 // In other words, T must have at least the same properties and methods that Student has.
 
-// function printName<T extends Student67>(input: T): void {
+// function printName<T extends Student>(input: T): void {
 //   console.log(input);
 //   console.log(input.name);
 // }
 
-// printName(student67);
+// printName(student);
 
-// function printName<T extends Student67 | Product67>(input: T): void {
-//   console.log(input.name);
+// function printName<T extends Student | Product>(input: T): void {
+//   console.log(input);
 // }
 
-// printName(product67);
+// printName(student);
+// printName(product);
 
 // The extends { name: string } part is a type constraint on T. It means that T can be any type, but it must be an object that has at least a name property of type string.
 // In other words, T must have at least the same properties and methods that { name: string } has.
@@ -171,6 +173,7 @@ function printName<T extends { name: string }>(input: T): void {
 
 printName(student);
 printName(product);
+// printName(car);
 
 ///////////////////////////////
 // 68. Generics - Default Type
@@ -182,8 +185,8 @@ const storeNumbers: StoreData<number> = {
   data: [1, 2, 3, 4]
 };
 
-const random68: StoreData = {
+const randomStuff: StoreData = {
   data: [1, "random string", 68, 4]
 };
 
-console.log(storeNumbers, random68);
+console.log(storeNumbers, randomStuff);

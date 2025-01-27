@@ -38,14 +38,22 @@ function Component() {
       <button
         className="btn btn-center"
         onClick={() => {
-          // setText("text");
+          setText("text");
           setNumber(19);
-          setList(["hello", "world"]);
+          setList(["hello", "Milan"]);
           setLinks([...links, { id: 4, url: "hello", text: "text" }]);
         }}
       >
         Click me
       </button>
+      <div>
+        {text} and {number} and {list.join(" ")}
+        <ul>
+          {links.map((item, index) => (
+            <li key={index}>{item.text}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
